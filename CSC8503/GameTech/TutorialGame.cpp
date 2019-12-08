@@ -78,7 +78,6 @@ void TutorialGame::UpdateGame(float dt) {
 		Debug::Print("(G)ravity off", Vector2(10, 40));
 	}
 
-
 	world->UpdateWorld(dt);
 	renderer->Update(dt);
 	physics->Update(dt);
@@ -142,12 +141,14 @@ void TutorialGame::LockedObjectMovement()
 
 	if (Window::GetKeyboard()->KeyDown(KeyboardKeys::A))
 	{
-		characterobj->GetPhysicsObject()->SetAngularVelocity(-rightAxis);  //remember to set the rotation here instead of the force
+		
+		characterobj->GetPhysicsObject()->AddTorque(Vector3(0, 5, 0));  //remember to set the rotation here instead of the force
 	}
 
 	if (Window::GetKeyboard()->KeyDown(KeyboardKeys::D))
 	{
-		characterobj->GetPhysicsObject()->SetAngularVelocity(rightAxis); //remember to set the rotation here instead of the force
+
+	characterobj->GetPhysicsObject()->AddTorque(-Vector3(0, 5, 0)); //remember to set the rotation here instead of the force
 	}
 
 	if (Window::GetKeyboard()->KeyDown(KeyboardKeys::W))
@@ -174,9 +175,9 @@ void TutorialGame::LockedObjectMovement()
 	{
 
 		Vector3 objPos = characterobj->GetTransform().GetWorldPosition();
-		Vector3 camPos = objPos + characterobj->GetConstTransform().GetWorldOrientation() * lockedOffset;
+		Vector3 camPos = objPos + characterobj->GetConstTransform().GetLocalOrientation() * lockedOffset;
 
-		Matrix4 temp = Matrix4::BuildViewMatrix(camPos, objPos, Vector3(0, 1, 1));
+		Matrix4 temp = Matrix4::BuildViewMatrix(camPos, objPos, Vector3(0, 1, 0));
 
 		Matrix4 modelMat = temp.Inverse();
 
@@ -370,7 +371,6 @@ GameObject* TutorialGame::AddGooseToWorld(const Vector3& position)
 	float inverseMass	= 1.0f;
 
 	GameObject* goose = new GameObject();
-
 
 	SphereVolume* volume = new SphereVolume(size);
 	goose->SetBoundingVolume((CollisionVolume*)volume);
