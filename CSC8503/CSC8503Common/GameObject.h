@@ -64,13 +64,19 @@ namespace NCL {
 			}
 			void SetName(string n) { name = n; }
 
-			virtual void OnCollisionBegin(GameObject* otherObject) {
-				//std::cout << "OnCollisionBegin event occured!\n";
-
+			virtual void OnCollisionBegin(GameObject* otherObject) 
+			{
 				if (this->name == "goose" && otherObject->name == "trampoline")
 				{
-					this->GetPhysicsObject()->AddForce(Vector3(0, 5000, 0));
-					std::cout << "Send me up boy" << std::endl;
+					this->GetPhysicsObject()->AddForce(Vector3(0, 4500, 0));
+				}
+				if (this->name == "goose" && otherObject->name == "LeftPlatform")
+				{
+					this->GetPhysicsObject()->AddForce(Vector3(0, 0, -50000));
+				}
+				if (this->name == "goose" && otherObject->name == "RightPlatform")
+				{
+					this->GetPhysicsObject()->AddForce(Vector3(50000, 0, 0));
 				}
 			}
 

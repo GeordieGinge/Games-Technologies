@@ -1,1 +1,10 @@
-﻿  CSC8503Common.vcxproj -> C:\Users\Aaron\Desktop\GITHUB\Games-Technologies\Win32\Debug\CSC8503Common.lib
+﻿  CollisionDetection.cpp
+  GameObject.cpp
+  GameServer.cpp
+  GameWorld.cpp
+  NetworkObject.cpp
+  PhysicsObject.cpp
+  PhysicsSystem.cpp
+  PositionConstraint.cpp
+  Generating Code...
+  CSC8503Common.vcxproj -> C:\Users\Admin\Desktop\GITHUB\Games-Technologies\Win32\Debug\CSC8503Common.lib

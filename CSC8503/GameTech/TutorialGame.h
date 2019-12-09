@@ -35,7 +35,8 @@ namespace NCL {
 			void LockedCameraMovement();
 
 			GameObject* AddWallToWorld(Vector3 position, Vector3 scale);
-			GameObject* AddPlatformToWorld(Vector3 position, Vector3 scale);
+			GameObject* AddLeftPlatformToWorld(Vector3 position, Vector3 scale);
+			GameObject* AddRightPlatformToWorld(Vector3 position, Vector3 scale);
 			GameObject* AddTrampolineToWorld(Vector3 position, Vector3 scale);
 			GameObject* AddFloorToWorld(const Vector3& position);
 			GameObject* AddSphereToWorld(const Vector3& position, float radius, float inverseMass = 10.0f);
@@ -72,7 +73,7 @@ namespace NCL {
 
 			//Coursework Additional functionality	
 			GameObject* characterobj	= nullptr;
-			Vector3 lockedOffset		= Vector3(0, 14, -20);
+			Vector3 lockedOffset		= Vector3(0, 7, -20);
 		}; 
 	}
 }

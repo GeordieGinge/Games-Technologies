@@ -137,7 +137,7 @@ void TutorialGame::LockedObjectMovement()
 	//so we can take a guess, and use the cross of straight up, and
 	//the right axis, to hopefully get a vector that's good enough!
 
-	Vector3 fwdAxis = Vector3::Cross(Vector3(0, 40, 0), rightAxis);
+	Vector3 fwdAxis = Vector3::Cross(Vector3(0, 70, 0), rightAxis);
 
 	if (Window::GetKeyboard()->KeyDown(KeyboardKeys::A))
 	{
@@ -212,21 +212,35 @@ void TutorialGame::InitWorld()
 	physics->Clear();
 	
 	InitMixedGridWorld(10, 10, 3.5f, 3.5f);
-	characterobj = AddGooseToWorld(Vector3(30, 1, 0));
+	characterobj = AddGooseToWorld(Vector3(-60, 0.5f, -80));
+	
 	AddAppleToWorld(Vector3(35, 2, 0));
+	
 	AddParkKeeperToWorld(Vector3(40, 2, 0));
+	
 	AddCharacterToWorld(Vector3(45, 2, 0));
-	AddPlatformToWorld(Vector3(50, 75, 88), Vector3(30, 1, 10));
-	AddPlatformToWorld(Vector3(-50, 75, 88), Vector3(30, 1, 10));
-	AddTrampolineToWorld(Vector3(-10, 5, 0), Vector3(1, 1, 1));
-
+	
+	AddRightPlatformToWorld(Vector3(-68, 75, 88), Vector3(30, 1, 10));
+	AddLeftPlatformToWorld(Vector3(88, 75, 70), Vector3(10, 1, 30));
+	//AddRightPlatformToWorld(Vector3(-88, 75, 70), Vector3(30, 1, 10));
+	//AddLeftPlatformToWorld(Vector3(88, 75, 70), Vector3(10, 1, 30));
+	
+    AddTrampolineToWorld(Vector3(-93, 0.5f, -80), Vector3(5, 0.5f, 5));
+	AddTrampolineToWorld(Vector3(-93, 10, -60), Vector3(5, 0.5f, 5));
+	AddTrampolineToWorld(Vector3(-93, 20, -40), Vector3(5, 0.5f, 5));
+	AddTrampolineToWorld(Vector3(-93, 30, -20), Vector3(5, 0.5f, 5));
+	AddTrampolineToWorld(Vector3(-93, 40, 0), Vector3(5, 0.5f, 5));
+	AddTrampolineToWorld(Vector3(-93, 50, 20), Vector3(5, 0.5f, 5));
+	AddTrampolineToWorld(Vector3(-93, 60, 40), Vector3(5, 0.5f, 5));
+	AddTrampolineToWorld(Vector3(-93, 70, 60), Vector3(5, 0.5f, 5));
+	
 	for (int i = 1; i < 11; ++i)
 	{
 		{
-			AddWallToWorld(Vector3(99, 10, -110 + (20 * i)), Vector3(1, 10, 10)); // Right wall
-			AddWallToWorld(Vector3(-99, 10, -110 + (20 * i)), Vector3(1, 10, 10)); //Left Wall
-			AddWallToWorld(Vector3(-110 + (20 * i), 10, -99), Vector3(10, 10, 1)); // Back wall
-			AddWallToWorld(Vector3(-110 + (20 * i), 50, 99), Vector3(10, 50, 1)); // Front wall
+			AddWallToWorld(Vector3(99, 50, -110 + (20 * i)), Vector3(1, 50, 10)); // Right wall
+			AddWallToWorld(Vector3(-99, 50, -110 + (20 * i)), Vector3(1, 50, 10)); //Left Wall
+			AddWallToWorld(Vector3(-110 + (20 * i), 50, -101), Vector3(10, 50, 1)); // Back wall
+			AddWallToWorld(Vector3(-110 + (20 * i), 50, 101), Vector3(10, 50, 1)); // Front wall
 		}
 	}
 }
@@ -256,7 +270,7 @@ GameObject* TutorialGame::AddWallToWorld(Vector3 position, Vector3 scale)
 	return wall;
 }
 
-GameObject* TutorialGame::AddPlatformToWorld(Vector3 position, Vector3 scale)
+GameObject* TutorialGame::AddLeftPlatformToWorld(Vector3 position, Vector3 scale)
 {
 	GameObject* wall = new GameObject();
 	AABBVolume* volume = new AABBVolume(Vector3(scale));
@@ -269,11 +283,28 @@ GameObject* TutorialGame::AddPlatformToWorld(Vector3 position, Vector3 scale)
 	wall->GetPhysicsObject()->SetInverseMass(0);
 	wall->GetPhysicsObject()->InitCubeInertia();
 
-
+	wall->SetName("LeftPlatform");
 	world->AddGameObject(wall);
 	return wall;
 }
 
+GameObject* TutorialGame::AddRightPlatformToWorld(Vector3 position, Vector3 scale)
+{
+	GameObject* wall = new GameObject();
+	AABBVolume* volume = new AABBVolume(Vector3(scale));
+	wall->SetBoundingVolume((CollisionVolume*)volume);
+	wall->GetTransform().SetWorldPosition(position);
+	wall->GetTransform().SetWorldScale(Vector3(scale));
+	wall->SetRenderObject(new RenderObject(&wall->GetTransform(), cubeMesh, basicTex, basicShader));
+	wall->SetPhysicsObject(new PhysicsObject(&wall->GetTransform(), wall->GetBoundingVolume()));
+
+	wall->GetPhysicsObject()->SetInverseMass(0);
+	wall->GetPhysicsObject()->InitCubeInertia();
+
+	wall->SetName("RightPlatform");
+	world->AddGameObject(wall);
+	return wall;
+}
 GameObject* TutorialGame::AddTrampolineToWorld(Vector3 position, Vector3 scale)
 {
 	GameObject* wall = new GameObject();
@@ -287,15 +318,11 @@ GameObject* TutorialGame::AddTrampolineToWorld(Vector3 position, Vector3 scale)
 	wall->GetPhysicsObject()->SetInverseMass(0);
 	wall->GetPhysicsObject()->InitCubeInertia();
 	
-	//Remove afer this its temp ofr test
 	wall->SetName("trampoline");
 
 	world->AddGameObject(wall);
 	return wall;
 }
-
-
-
 
 GameObject* TutorialGame::AddFloorToWorld(const Vector3& position) {
 	GameObject* floor = new GameObject();
