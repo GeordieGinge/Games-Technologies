@@ -1,10 +1,23 @@
-﻿  TutorialGame.cpp
+﻿  GameTechRenderer.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\winsock2.h(17,1): warning C4005: '_WINSOCKAPI_': macro redefinition
-C:\Users\Admin\Desktop\GITHUB\Games-Technologies\CSC8503\GameTech\TutorialGame.cpp : message : see previous definition of '_WINSOCKAPI_'
-C:\Users\Admin\Desktop\GITHUB\Games-Technologies\CSC8503\GameTech\TutorialGame.cpp(240,40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Admin\Desktop\GITHUB\Games-Technologies\CSC8503\GameTech\TutorialGame.cpp(241,41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Admin\Desktop\GITHUB\Games-Technologies\CSC8503\GameTech\TutorialGame.cpp(242,32): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Admin\Desktop\GITHUB\Games-Technologies\CSC8503\GameTech\TutorialGame.cpp(243,32): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Admin\Desktop\GITHUB\Games-Technologies\CSC8503\GameTech\TutorialGame.cpp(427,60): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\Admin\Desktop\GITHUB\Games-Technologies\CSC8503\GameTech\TutorialGame.cpp(463,60): warning C4305: 'argument': truncation from 'double' to 'float'
-  GameTech.vcxproj -> C:\Users\Admin\Desktop\GITHUB\Games-Technologies\Win32\Debug\GameTech.exe
+  Main.cpp
+C:\Users\Aaron\Desktop\GITHUB\Games-Technologies\CSC8503\GameTech\GameTechRenderer.cpp : message : see previous definition of '_WINSOCKAPI_'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\winsock2.h(17,1): warning C4005: '_WINSOCKAPI_': macro redefinition
+  NetworkPlayer.cpp
+C:\Users\Aaron\Desktop\GITHUB\Games-Technologies\CSC8503\GameTech\Main.cpp : message : see previous definition of '_WINSOCKAPI_'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\winsock2.h(17,1): warning C4005: '_WINSOCKAPI_': macro redefinition
+  NetworkedGame.cpp
+C:\Users\Aaron\Desktop\GITHUB\Games-Technologies\CSC8503\GameTech\NetworkPlayer.cpp : message : see previous definition of '_WINSOCKAPI_'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\winsock2.h(17,1): warning C4005: '_WINSOCKAPI_': macro redefinition
+  TutorialGame.cpp
+C:\Users\Aaron\Desktop\GITHUB\Games-Technologies\CSC8503\GameTech\NetworkedGame.cpp : message : see previous definition of '_WINSOCKAPI_'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\winsock2.h(17,1): warning C4005: '_WINSOCKAPI_': macro redefinition
+C:\Users\Aaron\Desktop\GITHUB\Games-Technologies\CSC8503\GameTech\TutorialGame.cpp : message : see previous definition of '_WINSOCKAPI_'
+C:\Users\Aaron\Desktop\GITHUB\Games-Technologies\CSC8503\GameTech\TutorialGame.cpp(240,40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Aaron\Desktop\GITHUB\Games-Technologies\CSC8503\GameTech\TutorialGame.cpp(241,41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Aaron\Desktop\GITHUB\Games-Technologies\CSC8503\GameTech\TutorialGame.cpp(242,32): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Aaron\Desktop\GITHUB\Games-Technologies\CSC8503\GameTech\TutorialGame.cpp(243,32): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Aaron\Desktop\GITHUB\Games-Technologies\CSC8503\GameTech\TutorialGame.cpp(464,60): warning C4305: 'argument': truncation from 'double' to 'float'
+  Generating Code...
+C:\Users\Aaron\Desktop\GITHUB\Games-Technologies\CSC8503\GameTech\TutorialGame.cpp(500,60): warning C4305: 'argument': truncation from 'double' to 'float'
+  GameTech.vcxproj -> C:\Users\Aaron\Desktop\GITHUB\Games-Technologies\Win32\Debug\GameTech.exe

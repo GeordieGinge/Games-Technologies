@@ -220,10 +220,10 @@ void TutorialGame::InitWorld()
 	
 	AddCharacterToWorld(Vector3(45, 2, 0));
 	
-	AddRightPlatformToWorld(Vector3(-68, 75, 88), Vector3(30, 1, 10));
-	AddLeftPlatformToWorld(Vector3(88, 75, 70), Vector3(10, 1, 30));
-	//AddRightPlatformToWorld(Vector3(-88, 75, 70), Vector3(30, 1, 10));
-	//AddLeftPlatformToWorld(Vector3(88, 75, 70), Vector3(10, 1, 30));
+	AddPlatform1ToWorld(Vector3(-68, 75, 90), Vector3(30, 1, 10));
+	AddPlatform2ToWorld(Vector3(88, 75, 70), Vector3(10, 1, 30));
+	AddPlatform3ToWorld(Vector3(68, 75, -90), Vector3(30, 1, 10));
+	AddPlatform4ToWorld(Vector3(-88, 75, -70), Vector3(10, 1, 30));
 	
     AddTrampolineToWorld(Vector3(-93, 0.5f, -80), Vector3(5, 0.5f, 5));
 	AddTrampolineToWorld(Vector3(-93, 10, -60), Vector3(5, 0.5f, 5));
@@ -270,7 +270,7 @@ GameObject* TutorialGame::AddWallToWorld(Vector3 position, Vector3 scale)
 	return wall;
 }
 
-GameObject* TutorialGame::AddLeftPlatformToWorld(Vector3 position, Vector3 scale)
+GameObject* TutorialGame::AddPlatform1ToWorld(Vector3 position, Vector3 scale)
 {
 	GameObject* wall = new GameObject();
 	AABBVolume* volume = new AABBVolume(Vector3(scale));
@@ -283,12 +283,12 @@ GameObject* TutorialGame::AddLeftPlatformToWorld(Vector3 position, Vector3 scale
 	wall->GetPhysicsObject()->SetInverseMass(0);
 	wall->GetPhysicsObject()->InitCubeInertia();
 
-	wall->SetName("LeftPlatform");
+	wall->SetName("1Platform");
 	world->AddGameObject(wall);
 	return wall;
 }
 
-GameObject* TutorialGame::AddRightPlatformToWorld(Vector3 position, Vector3 scale)
+GameObject* TutorialGame::AddPlatform2ToWorld(Vector3 position, Vector3 scale)
 {
 	GameObject* wall = new GameObject();
 	AABBVolume* volume = new AABBVolume(Vector3(scale));
@@ -301,10 +301,47 @@ GameObject* TutorialGame::AddRightPlatformToWorld(Vector3 position, Vector3 scal
 	wall->GetPhysicsObject()->SetInverseMass(0);
 	wall->GetPhysicsObject()->InitCubeInertia();
 
-	wall->SetName("RightPlatform");
+	wall->SetName("2Platform");
 	world->AddGameObject(wall);
 	return wall;
 }
+
+GameObject* TutorialGame::AddPlatform3ToWorld(Vector3 position, Vector3 scale)
+{
+	GameObject* wall = new GameObject();
+	AABBVolume* volume = new AABBVolume(Vector3(scale));
+	wall->SetBoundingVolume((CollisionVolume*)volume);
+	wall->GetTransform().SetWorldPosition(position);
+	wall->GetTransform().SetWorldScale(Vector3(scale));
+	wall->SetRenderObject(new RenderObject(&wall->GetTransform(), cubeMesh, basicTex, basicShader));
+	wall->SetPhysicsObject(new PhysicsObject(&wall->GetTransform(), wall->GetBoundingVolume()));
+
+	wall->GetPhysicsObject()->SetInverseMass(0);
+	wall->GetPhysicsObject()->InitCubeInertia();
+
+	wall->SetName("3Platform"); 
+	world->AddGameObject(wall);
+	return wall;
+}
+
+GameObject* TutorialGame::AddPlatform4ToWorld(Vector3 position, Vector3 scale)
+{
+	GameObject* wall = new GameObject();
+	AABBVolume* volume = new AABBVolume(Vector3(scale));
+	wall->SetBoundingVolume((CollisionVolume*)volume);
+	wall->GetTransform().SetWorldPosition(position);
+	wall->GetTransform().SetWorldScale(Vector3(scale));
+	wall->SetRenderObject(new RenderObject(&wall->GetTransform(), cubeMesh, basicTex, basicShader));
+	wall->SetPhysicsObject(new PhysicsObject(&wall->GetTransform(), wall->GetBoundingVolume()));
+
+	wall->GetPhysicsObject()->SetInverseMass(0);
+	wall->GetPhysicsObject()->InitCubeInertia();
+
+	wall->SetName("4Platform");
+	world->AddGameObject(wall);
+	return wall;
+}
+
 GameObject* TutorialGame::AddTrampolineToWorld(Vector3 position, Vector3 scale)
 {
 	GameObject* wall = new GameObject();

@@ -35,8 +35,10 @@ namespace NCL {
 			void LockedCameraMovement();
 
 			GameObject* AddWallToWorld(Vector3 position, Vector3 scale);
-			GameObject* AddLeftPlatformToWorld(Vector3 position, Vector3 scale);
-			GameObject* AddRightPlatformToWorld(Vector3 position, Vector3 scale);
+			GameObject* AddPlatform1ToWorld(Vector3 position, Vector3 scale);
+			GameObject* AddPlatform2ToWorld(Vector3 position, Vector3 scale);
+			GameObject* AddPlatform3ToWorld(Vector3 position, Vector3 scale);
+			GameObject* AddPlatform4ToWorld(Vector3 position, Vector3 scale);
 			GameObject* AddTrampolineToWorld(Vector3 position, Vector3 scale);
 			GameObject* AddFloorToWorld(const Vector3& position);
 			GameObject* AddSphereToWorld(const Vector3& position, float radius, float inverseMass = 10.0f);

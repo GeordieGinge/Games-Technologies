@@ -64,19 +64,29 @@ namespace NCL {
 			}
 			void SetName(string n) { name = n; }
 
-			virtual void OnCollisionBegin(GameObject* otherObject) 
+			virtual void OnCollisionBegin(GameObject* otherObject)
 			{
 				if (this->name == "goose" && otherObject->name == "trampoline")
 				{
 					this->GetPhysicsObject()->AddForce(Vector3(0, 4500, 0));
 				}
-				if (this->name == "goose" && otherObject->name == "LeftPlatform")
+				if (this->name == "goose" && otherObject->name == "1Platform")
+				{
+					this->GetPhysicsObject()->AddForce(Vector3(50000, 0, 0));
+				}
+				if (this->name == "goose" && otherObject->name == "2Platform")
 				{
 					this->GetPhysicsObject()->AddForce(Vector3(0, 0, -50000));
 				}
-				if (this->name == "goose" && otherObject->name == "RightPlatform")
+
+				if (this->name == "goose" && otherObject->name == "3Platform")
 				{
-					this->GetPhysicsObject()->AddForce(Vector3(50000, 0, 0));
+					this->GetPhysicsObject()->AddForce(Vector3(-50000, 0, 0));
+				}
+
+				if (this->name == "goose" && otherObject->name == "4Platform")
+				{
+					this->GetPhysicsObject()->AddForce(Vector3(0, 0, 30000));
 				}
 			}
 
