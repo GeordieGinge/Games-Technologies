@@ -66,27 +66,28 @@ namespace NCL {
 
 			virtual void OnCollisionBegin(GameObject* otherObject)
 			{
-				if (this->name == "goose" && otherObject->name == "trampoline")
+				if (this->name == "goose" && otherObject->name == "trampoline" || this->name == "ball" && otherObject->name == "trampoline")
 				{
-					this->GetPhysicsObject()->AddForce(Vector3(0, 4500, 0));
+					if (this->name == "goose") { this->GetPhysicsObject()->AddForce(Vector3(0, 4500, 0)); }
+					else if (this->name == "ball") { this->GetPhysicsObject()->AddForce(Vector3(0, 200, 0)); }
 				}
 				if (this->name == "goose" && otherObject->name == "1Platform")
 				{
-					this->GetPhysicsObject()->AddForce(Vector3(50000, 0, 0));
+					this->GetPhysicsObject()->AddForce(Vector3(50000, 100, 0));
 				}
 				if (this->name == "goose" && otherObject->name == "2Platform")
 				{
-					this->GetPhysicsObject()->AddForce(Vector3(0, 0, -50000));
+					this->GetPhysicsObject()->AddForce(Vector3(0, 100, -50000));
 				}
 
 				if (this->name == "goose" && otherObject->name == "3Platform")
 				{
-					this->GetPhysicsObject()->AddForce(Vector3(-50000, 0, 0));
+					this->GetPhysicsObject()->AddForce(Vector3(-50000, 100, 0));
 				}
 
 				if (this->name == "goose" && otherObject->name == "4Platform")
 				{
-					this->GetPhysicsObject()->AddForce(Vector3(0, 0, 30000));
+					this->GetPhysicsObject()->AddForce(Vector3(0, 100, 30000));
 				}
 			}
 

@@ -10,13 +10,13 @@
 using namespace NCL;
 using namespace CSC8503;
 
-TutorialGame::TutorialGame()	{
-	world		= new GameWorld();
-	renderer	= new GameTechRenderer(*world);
-	physics		= new PhysicsSystem(*world);
+TutorialGame::TutorialGame() {
+	world = new GameWorld();
+	renderer = new GameTechRenderer(*world);
+	physics = new PhysicsSystem(*world);
 
-	forceMagnitude	= 10.0f;
-	useGravity		= false;
+	forceMagnitude = 10.0f;
+	useGravity = false;
 	inSelectionMode = false;
 
 	Debug::SetRenderer(renderer);
@@ -25,12 +25,11 @@ TutorialGame::TutorialGame()	{
 }
 
 /*
-
 Each of the little demo scenarios used in the game uses the same 2 meshes, 
 and the same texture and shader. There's no need to ever load in anything else
 for this module, even in the coursework, but you can add it if you like!
-
 */
+
 void TutorialGame::InitialiseAssets() {
 	auto loadFunc = [](const string& name, OGLMesh** into) {
 		*into = new OGLMesh(name);
@@ -71,11 +70,13 @@ void TutorialGame::UpdateGame(float dt) {
 
 	UpdateKeys();
 
-	if (useGravity) {
-		Debug::Print("(G)ravity on", Vector2(10, 40));
+	if (useGravity) 
+	{
+		Debug::Print("(G)ravity on", Vector2(50, 40));
 	}
-	else {
-		Debug::Print("(G)ravity off", Vector2(10, 40));
+	else 
+	{
+		Debug::Print("(G)ravity off", Vector2(50, 40));
 	}
 
 	world->UpdateWorld(dt);
@@ -92,11 +93,13 @@ void TutorialGame::UpdateKeys() {
 		InitWorld(); //We can reset the simulation at any time with F1
 	}
 
-	if (Window::GetKeyboard()->KeyPressed(KeyboardKeys::F2)) {
+	if (Window::GetKeyboard()->KeyPressed(KeyboardKeys::F2)) 
+	{
 		InitCamera(); //F2 will reset the camera to a specific default place
 	}
 
-	if (Window::GetKeyboard()->KeyPressed(KeyboardKeys::G)) {
+	if (Window::GetKeyboard()->KeyPressed(KeyboardKeys::G)) 
+	{
 		useGravity = !useGravity; //Toggle gravity!
 		physics->UseGravity(useGravity);
 	}
@@ -141,39 +144,37 @@ void TutorialGame::LockedObjectMovement()
 
 	if (Window::GetKeyboard()->KeyDown(KeyboardKeys::A))
 	{
-		
-		characterobj->GetPhysicsObject()->AddTorque(Vector3(0, 5, 0));  //remember to set the rotation here instead of the force
+		characterobj->GetPhysicsObject()->AddTorque(Vector3(0, 5, 0));
 	}
 
 	if (Window::GetKeyboard()->KeyDown(KeyboardKeys::D))
 	{
-
-	characterobj->GetPhysicsObject()->AddTorque(-Vector3(0, 5, 0)); //remember to set the rotation here instead of the force
+		characterobj->GetPhysicsObject()->AddTorque(-Vector3(0, 5, 0));
 	}
 
 	if (Window::GetKeyboard()->KeyDown(KeyboardKeys::W))
 	{
 		characterobj->GetPhysicsObject()->AddForce(fwdAxis);
 	}
+
 	if (Window::GetKeyboard()->KeyDown(KeyboardKeys::S))
 	{
 		characterobj->GetPhysicsObject()->AddForce(-fwdAxis);
 	}
 
-	if (Window::GetKeyboard()->KeyDown(KeyboardKeys::SPACE))
+	if (Window::GetKeyboard()->KeyPressed(KeyboardKeys::SPACE))
 	{
-		characterobj->GetPhysicsObject()->AddForce(Vector3(0, 50, 0));
+		characterobj->GetPhysicsObject()->AddForce(Vector3(0, 1000, 0));
 	}
 
 	if (Window::GetKeyboard()->KeyDown(KeyboardKeys::SHIFT))
 	{
-		characterobj->GetPhysicsObject()->AddForce(Vector3(0, -50, 0));
+		characterobj->GetPhysicsObject()->AddForce(Vector3(0, -500, 0));
 	}
 }
 
 	void  TutorialGame::LockedCameraMovement()
 	{
-
 		Vector3 objPos = characterobj->GetTransform().GetWorldPosition();
 		Vector3 camPos = objPos + characterobj->GetConstTransform().GetLocalOrientation() * lockedOffset;
 
@@ -187,7 +188,6 @@ void TutorialGame::LockedObjectMovement()
 		world->GetMainCamera()->SetPosition(camPos);
 		world->GetMainCamera()->SetPitch(angles.x);
 		world->GetMainCamera()->SetYaw(angles.y);
-
 	}
 
 
@@ -225,6 +225,7 @@ void TutorialGame::InitWorld()
 	AddPlatform3ToWorld(Vector3(68, 75, -90), Vector3(30, 1, 10));
 	AddPlatform4ToWorld(Vector3(-88, 75, -70), Vector3(10, 1, 30));
 	
+	AddTrampolineToWorld(Vector3(20, 0.5, 10), Vector3(15, 0.2f, 15));
     AddTrampolineToWorld(Vector3(-93, 0.5f, -80), Vector3(5, 0.5f, 5));
 	AddTrampolineToWorld(Vector3(-93, 10, -60), Vector3(5, 0.5f, 5));
 	AddTrampolineToWorld(Vector3(-93, 20, -40), Vector3(5, 0.5f, 5));
@@ -402,13 +403,14 @@ GameObject* TutorialGame::AddSphereToWorld(const Vector3& position, float radius
 
 	sphere->GetPhysicsObject()->SetInverseMass(inverseMass);
 	sphere->GetPhysicsObject()->InitSphereInertia();
-
+	sphere->SetName("ball");
 	world->AddGameObject(sphere);
 
 	return sphere;
 }
 
-GameObject* TutorialGame::AddCubeToWorld(const Vector3& position, Vector3 dimensions, float inverseMass) {
+GameObject* TutorialGame::AddCubeToWorld(const Vector3& position, Vector3 dimensions, float inverseMass) 
+{
 	GameObject* cube = new GameObject();
 
 	AABBVolume* volume = new AABBVolume(dimensions);
@@ -543,30 +545,18 @@ void TutorialGame::InitSphereGridWorld(int numRows, int numCols, float rowSpacin
 	AddFloorToWorld(Vector3(0, -2, 0));
 }
 
-void TutorialGame::InitMixedGridWorld(int numRows, int numCols, float rowSpacing, float colSpacing) {
+void TutorialGame::InitMixedGridWorld(int numRows, int numCols, float rowSpacing, float colSpacing) 
+{
 	float sphereRadius = 1.0f;
-	Vector3 cubeDims = Vector3(1, 1, 1);
-
-	for (int x = 0; x < numCols; ++x) {
-		for (int z = 0; z < numRows; ++z) {
-			Vector3 position = Vector3(x * colSpacing, 10.0f, z * rowSpacing);
-
-			if (rand() % 2) {
-				AddCubeToWorld(position, cubeDims);
-			}
-			else {
+	
+	for (int x = 0; x < numCols; ++x)
+	{
+		for (int z = 0; z < numRows; ++z)
+		{
+			Vector3 position = Vector3(x * colSpacing, 10.0f , z * rowSpacing);
+			{
 				AddSphereToWorld(position, sphereRadius);
 			}
-		}
-	}
-	AddFloorToWorld(Vector3(0, -2, 0));
-}
-
-void TutorialGame::InitCubeGridWorld(int numRows, int numCols, float rowSpacing, float colSpacing, const Vector3& cubeDims) {
-	for (int x = 1; x < numCols+1; ++x) {
-		for (int z = 1; z < numRows+1; ++z) {
-			Vector3 position = Vector3(x * colSpacing, 10.0f, z * rowSpacing);
-			AddCubeToWorld(position, cubeDims, 1.0f);
 		}
 	}
 	AddFloorToWorld(Vector3(0, -2, 0));
@@ -611,6 +601,5 @@ void TutorialGame::SimpleGJKTest() {
 
 	fallingCube->SetBoundingVolume((CollisionVolume*)new OBBVolume(dimensions));
 	newFloor->SetBoundingVolume((CollisionVolume*)new OBBVolume(floorDimensions));
-
 }
 
