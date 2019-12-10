@@ -52,7 +52,8 @@ void TutorialGame::InitialiseAssets() {
 	InitWorld();
 }
 
-TutorialGame::~TutorialGame()	{
+TutorialGame::~TutorialGame()	
+{
 	delete cubeMesh;
 	delete sphereMesh;
 	delete gooseMesh;
