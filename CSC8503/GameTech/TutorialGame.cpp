@@ -10,7 +10,8 @@
 using namespace NCL;
 using namespace CSC8503;
 
-TutorialGame::TutorialGame() {
+TutorialGame::TutorialGame() 
+{
 	world = new GameWorld();
 	renderer = new GameTechRenderer(*world);
 	physics = new PhysicsSystem(*world);
@@ -31,21 +32,23 @@ for this module, even in the coursework, but you can add it if you like!
 */
 
 void TutorialGame::InitialiseAssets() {
-	auto loadFunc = [](const string& name, OGLMesh** into) {
+	auto loadFunc = [](const string& name, OGLMesh** into)
+	{
 		*into = new OGLMesh(name);
 		(*into)->SetPrimitiveType(GeometryPrimitive::Triangles);
 		(*into)->UploadToGPU();
 	};
 
-	loadFunc("cube.msh"		 , &cubeMesh);
-	loadFunc("sphere.msh"	 , &sphereMesh);
-	loadFunc("goose.msh"	 , &gooseMesh);
+	loadFunc("cube.msh", &cubeMesh);
+	loadFunc("sphere.msh", &sphereMesh);
+	loadFunc("goose.msh", &gooseMesh);
 	loadFunc("CharacterA.msh", &keeperMesh);
 	loadFunc("CharacterM.msh", &charA);
 	loadFunc("CharacterF.msh", &charB);
-	loadFunc("Apple.msh"	 , &appleMesh);
+	loadFunc("Apple.msh", &appleMesh);
 
-	basicTex	= (OGLTexture*)TextureLoader::LoadAPITexture("checkerboard.png");
+	basicTex = (OGLTexture*)TextureLoader::LoadAPITexture("checkerboard.PNG");
+	waterTex = (OGLTexture*)TextureLoader::LoadAPITexture("water.JPG");
 	basicShader = new OGLShader("GameTechVert.glsl", "GameTechFrag.glsl");
 
 	InitCamera();
@@ -211,23 +214,25 @@ void TutorialGame::InitWorld()
 {
 	world->ClearAndErase();
 	physics->Clear();
-	
+
 	InitMixedGridWorld(10, 10, 3.5f, 3.5f);
 	characterobj = AddGooseToWorld(Vector3(-60, 0.5f, -80));
-	
+
+	AddFloorToWorld(Vector3(0, 0, 0));
+
 	AddAppleToWorld(Vector3(35, 2, 0));
-	
+
 	AddParkKeeperToWorld(Vector3(40, 2, 0));
-	
+
 	AddCharacterToWorld(Vector3(45, 2, 0));
-	
+
 	AddPlatform1ToWorld(Vector3(-68, 75, 90), Vector3(30, 1, 10));
 	AddPlatform2ToWorld(Vector3(88, 75, 70), Vector3(10, 1, 30));
 	AddPlatform3ToWorld(Vector3(68, 75, -90), Vector3(30, 1, 10));
 	AddPlatform4ToWorld(Vector3(-88, 75, -70), Vector3(10, 1, 30));
-	
-	AddTrampolineToWorld(Vector3(20, 0.5, 10), Vector3(15, 0.2f, 15));
-    AddTrampolineToWorld(Vector3(-93, 0.5f, -80), Vector3(5, 0.5f, 5));
+
+	AddTrampolineToWorld(Vector3(20, 0.3, 10), Vector3(15, 0.2f, 15));
+	AddTrampolineToWorld(Vector3(-93, 0.6f, -80), Vector3(5, 0.5f, 5));
 	AddTrampolineToWorld(Vector3(-93, 10, -60), Vector3(5, 0.5f, 5));
 	AddTrampolineToWorld(Vector3(-93, 20, -40), Vector3(5, 0.5f, 5));
 	AddTrampolineToWorld(Vector3(-93, 30, -20), Vector3(5, 0.5f, 5));
@@ -235,25 +240,14 @@ void TutorialGame::InitWorld()
 	AddTrampolineToWorld(Vector3(-93, 50, 20), Vector3(5, 0.5f, 5));
 	AddTrampolineToWorld(Vector3(-93, 60, 40), Vector3(5, 0.5f, 5));
 	AddTrampolineToWorld(Vector3(-93, 70, 60), Vector3(5, 0.5f, 5));
-	
-	for (int i = 1; i < 11; ++i)
-	{
-		{
-			AddWallToWorld(Vector3(99, 50, -110 + (20 * i)), Vector3(1, 50, 10)); // Right wall
-			AddWallToWorld(Vector3(-99, 50, -110 + (20 * i)), Vector3(1, 50, 10)); //Left Wall
-			AddWallToWorld(Vector3(-110 + (20 * i), 50, -101), Vector3(10, 50, 1)); // Back wall
-			AddWallToWorld(Vector3(-110 + (20 * i), 50, 101), Vector3(10, 50, 1)); // Front wall
-		}
-	}
+
+	AddWaterToWorld(Vector3(0, -0.9, 0));
+
+	AddWallToWorld(Vector3(Vector3(101, 1, 0)), Vector3(1, 1, 100)); // Right wall
+	AddWallToWorld(Vector3(Vector3(-101, 1, 0)), Vector3(1, 1, 100)); //Left Wall
+	AddWallToWorld(Vector3(Vector3(0, 1, -101)), Vector3(102, 1, 1)); // Back wall
+	AddWallToWorld(Vector3(Vector3(0, 1, 101)), Vector3(102, 1, 1)); // Front wall
 }
-
-
-
-//From here on it's functions to add in objects to the world!
-
-/*
-A single function to add a large immoveable cube to the bottom of our world
-*/
 
 GameObject* TutorialGame::AddWallToWorld(Vector3 position, Vector3 scale)
 {
@@ -366,13 +360,33 @@ GameObject* TutorialGame::AddTrampolineToWorld(Vector3 position, Vector3 scale)
 GameObject* TutorialGame::AddFloorToWorld(const Vector3& position) {
 	GameObject* floor = new GameObject();
 
-	Vector3 floorSize = Vector3(100, 2, 100);
+	Vector3 floorSize = Vector3(100, 0.1, 100);
 	AABBVolume* volume = new AABBVolume(floorSize);
 	floor->SetBoundingVolume((CollisionVolume*)volume);
 	floor->GetTransform().SetWorldScale(floorSize);
 	floor->GetTransform().SetWorldPosition(position);
 
 	floor->SetRenderObject(new RenderObject(&floor->GetTransform(), cubeMesh, basicTex, basicShader));
+	floor->SetPhysicsObject(new PhysicsObject(&floor->GetTransform(), floor->GetBoundingVolume()));
+
+	floor->GetPhysicsObject()->SetInverseMass(0);
+	floor->GetPhysicsObject()->InitCubeInertia();
+
+	world->AddGameObject(floor);
+
+	return floor;
+}
+
+GameObject* TutorialGame::AddWaterToWorld(const Vector3& position) {
+	GameObject* floor = new GameObject("water");
+
+	Vector3 floorSize = Vector3(200, 0.5f, 200);
+	AABBVolume* volume = new AABBVolume(floorSize - Vector3(0, 0.9f, 0));
+	floor->SetBoundingVolume((CollisionVolume*)volume);
+	floor->GetTransform().SetWorldScale(floorSize);
+	floor->GetTransform().SetWorldPosition(position);
+
+	floor->SetRenderObject(new RenderObject(&floor->GetTransform(), cubeMesh, waterTex, basicShader));
 	floor->SetPhysicsObject(new PhysicsObject(&floor->GetTransform(), floor->GetBoundingVolume()));
 
 	floor->GetPhysicsObject()->SetInverseMass(0);
@@ -543,7 +557,6 @@ void TutorialGame::InitSphereGridWorld(int numRows, int numCols, float rowSpacin
 			AddSphereToWorld(position, radius, 1.0f);
 		}
 	}
-	AddFloorToWorld(Vector3(0, -2, 0));
 }
 
 void TutorialGame::InitMixedGridWorld(int numRows, int numCols, float rowSpacing, float colSpacing) 
@@ -560,7 +573,6 @@ void TutorialGame::InitMixedGridWorld(int numRows, int numCols, float rowSpacing
 			}
 		}
 	}
-	AddFloorToWorld(Vector3(0, -2, 0));
 }
 
 void TutorialGame::BridgeConstraintTest() {

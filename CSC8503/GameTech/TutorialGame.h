@@ -5,7 +5,7 @@
 
 namespace NCL {
 	namespace CSC8503 {
-		class TutorialGame		{
+		class TutorialGame {
 		public:
 			TutorialGame();
 			~TutorialGame();
@@ -23,7 +23,7 @@ namespace NCL {
 			/*
 			These are some of the world/object creation functions I created when testing the functionality
 			in the module. Feel free to mess around with them to see different objects being created in different
-			test scenarios (constraints, collision types, and so on). 
+			test scenarios (constraints, collision types, and so on).
 			*/
 			void InitSphereGridWorld(int numRows, int numCols, float rowSpacing, float colSpacing, float radius);
 			void InitMixedGridWorld(int numRows, int numCols, float rowSpacing, float colSpacing);
@@ -41,9 +41,10 @@ namespace NCL {
 			GameObject* AddPlatform4ToWorld(Vector3 position, Vector3 scale);
 			GameObject* AddTrampolineToWorld(Vector3 position, Vector3 scale);
 			GameObject* AddFloorToWorld(const Vector3& position);
+			GameObject* AddWaterToWorld(const Vector3& position);
 			GameObject* AddSphereToWorld(const Vector3& position, float radius, float inverseMass = 10.0f);
 			GameObject* AddCubeToWorld(const Vector3& position, Vector3 dimensions, float inverseMass = 10.0f);
-			
+
 			//IT'S HAPPENING
 			GameObject* AddGooseToWorld(const Vector3& position);
 			GameObject* AddParkKeeperToWorld(const Vector3& position);
@@ -51,9 +52,9 @@ namespace NCL {
 			GameObject* AddAppleToWorld(const Vector3& position);
 
 
-			GameTechRenderer*	renderer;
-			PhysicsSystem*		physics;
-			GameWorld*			world;
+			GameTechRenderer* renderer;
+			PhysicsSystem* physics;
+			GameWorld* world;
 
 			bool useGravity;
 			bool inSelectionMode;
@@ -61,22 +62,23 @@ namespace NCL {
 			float		forceMagnitude;
 
 
-			OGLMesh*	cubeMesh	= nullptr;
-			OGLMesh*	sphereMesh	= nullptr;
-			OGLTexture* basicTex	= nullptr;
-			OGLShader*	basicShader = nullptr;
+			OGLMesh* cubeMesh = nullptr;
+			OGLMesh* sphereMesh = nullptr;
+			OGLTexture* basicTex = nullptr;
+			OGLTexture* waterTex = nullptr;
+			OGLShader* basicShader = nullptr;
 
 			//Coursework Meshes
-			OGLMesh*	gooseMesh	= nullptr;
-			OGLMesh*	keeperMesh	= nullptr;
-			OGLMesh*	appleMesh	= nullptr;
-			OGLMesh*	charA		= nullptr;
-			OGLMesh*	charB		= nullptr;
+			OGLMesh* gooseMesh = nullptr;
+			OGLMesh* keeperMesh = nullptr;
+			OGLMesh* appleMesh = nullptr;
+			OGLMesh* charA = nullptr;
+			OGLMesh* charB = nullptr;
 
 			//Coursework Additional functionality	
-			GameObject* characterobj	= nullptr;
-			Vector3 lockedOffset		= Vector3(0, 7, -20);
-		}; 
+			GameObject* characterobj = nullptr;
+			Vector3 lockedOffset = Vector3(0, 3.5f, -20);
+		};
 	}
 }
 

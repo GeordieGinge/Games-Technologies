@@ -14,7 +14,8 @@ const int BOTTOM_NODE	= 3;
 const char WALL_NODE	= 'x';
 const char FLOOR_NODE	= '.';
 
-NavigationGrid::NavigationGrid()	{
+NavigationGrid::NavigationGrid()	
+{
 	nodeSize	= 0;
 	gridWidth	= 0;
 	gridHeight	= 0;

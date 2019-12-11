@@ -89,10 +89,15 @@ namespace NCL {
 				{
 					this->GetPhysicsObject()->AddForce(Vector3(0, 100, 30000));
 				}
+				if (otherObject->name == "water") {
+					this->GetPhysicsObject()->SetFriction(Vector3(5, 1, 5));
+				}
 			}
 
 			virtual void OnCollisionEnd(GameObject* otherObject) {
-				//std::cout << "OnCollisionEnd event occured!\n";
+				if (otherObject->name == "water") {
+					this->GetPhysicsObject()->SetFriction(Vector3(1, 1, 1));
+				}
 			}
 
 			bool GetBroadphaseAABB(Vector3&outsize) const;

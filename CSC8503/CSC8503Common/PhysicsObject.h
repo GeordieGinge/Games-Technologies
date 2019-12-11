@@ -59,6 +59,14 @@ namespace NCL {
 				angularVelocity = v;
 			}
 
+			void SetFriction(Vector3 f) {
+				friction = f;
+			}
+
+			Vector3 Getfriction()const {
+				return friction;
+			}
+
 			void InitCubeInertia();
 			void InitSphereInertia();
 
@@ -74,12 +82,12 @@ namespace NCL {
 
 			float inverseMass;
 			float elasticity;
-			float friction;
 
 
 			//linear stuff
 			Vector3 linearVelocity;
 			Vector3 force;
+			Vector3 friction;
 
 
 			//angular stuff

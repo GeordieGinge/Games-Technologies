@@ -56,12 +56,10 @@ void TestStateMachine() {
 	delete testMachine;
 }// end of TestStateMachine function !
 
-void TestNetworking() {
-}
-
 vector<Vector3> testNodes;
 
-	void TestPathfinding() {
+	void TestPathfinding() 
+	{
 		NavigationGrid grid("TestGrid1.txt");
 
 		NavigationPath outPath;
@@ -72,7 +70,8 @@ vector<Vector3> testNodes;
 		bool found = grid.FindPath(startPos, endPos, outPath);
 
 		Vector3 pos;
-		while (outPath.PopWaypoint(pos)) {
+		while (outPath.PopWaypoint(pos)) 
+		{
 			testNodes.push_back(pos);
 		}
 	}
@@ -108,7 +107,7 @@ int main() {
 
 	TestStateMachine();
 	//TestNetworking();
-	//TestPathfinding();
+	TestPathfinding();
 	
 	w->ShowOSPointer(false);
 	w->LockMouseToWindow(true);
