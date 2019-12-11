@@ -47,8 +47,12 @@ void TutorialGame::InitialiseAssets() {
 	loadFunc("CharacterF.msh", &charB);
 	loadFunc("Apple.msh", &appleMesh);
 
-	basicTex = (OGLTexture*)TextureLoader::LoadAPITexture("checkerboard.PNG");
+	basicTex = (OGLTexture*)TextureLoader::LoadAPITexture("brick.PNG");
 	waterTex = (OGLTexture*)TextureLoader::LoadAPITexture("water.JPG");
+	trampoTex = (OGLTexture*)TextureLoader::LoadAPITexture("trampo.JPG");
+	forceTex = (OGLTexture*)TextureLoader::LoadAPITexture("force.JPG");
+	ballTex = (OGLTexture*)TextureLoader::LoadAPITexture("ball.JPG");
+
 	basicShader = new OGLShader("GameTechVert.glsl", "GameTechFrag.glsl");
 
 	InitCamera();
@@ -273,7 +277,7 @@ GameObject* TutorialGame::AddPlatform1ToWorld(Vector3 position, Vector3 scale)
 	wall->SetBoundingVolume((CollisionVolume*)volume);
 	wall->GetTransform().SetWorldPosition(position);
 	wall->GetTransform().SetWorldScale(Vector3(scale));
-	wall->SetRenderObject(new RenderObject(&wall->GetTransform(), cubeMesh, basicTex, basicShader));
+	wall->SetRenderObject(new RenderObject(&wall->GetTransform(), cubeMesh, forceTex, basicShader));
 	wall->SetPhysicsObject(new PhysicsObject(&wall->GetTransform(), wall->GetBoundingVolume()));
 
 	wall->GetPhysicsObject()->SetInverseMass(0);
@@ -291,7 +295,7 @@ GameObject* TutorialGame::AddPlatform2ToWorld(Vector3 position, Vector3 scale)
 	wall->SetBoundingVolume((CollisionVolume*)volume);
 	wall->GetTransform().SetWorldPosition(position);
 	wall->GetTransform().SetWorldScale(Vector3(scale));
-	wall->SetRenderObject(new RenderObject(&wall->GetTransform(), cubeMesh, basicTex, basicShader));
+	wall->SetRenderObject(new RenderObject(&wall->GetTransform(), cubeMesh, forceTex, basicShader));
 	wall->SetPhysicsObject(new PhysicsObject(&wall->GetTransform(), wall->GetBoundingVolume()));
 
 	wall->GetPhysicsObject()->SetInverseMass(0);
@@ -309,7 +313,7 @@ GameObject* TutorialGame::AddPlatform3ToWorld(Vector3 position, Vector3 scale)
 	wall->SetBoundingVolume((CollisionVolume*)volume);
 	wall->GetTransform().SetWorldPosition(position);
 	wall->GetTransform().SetWorldScale(Vector3(scale));
-	wall->SetRenderObject(new RenderObject(&wall->GetTransform(), cubeMesh, basicTex, basicShader));
+	wall->SetRenderObject(new RenderObject(&wall->GetTransform(), cubeMesh, forceTex, basicShader));
 	wall->SetPhysicsObject(new PhysicsObject(&wall->GetTransform(), wall->GetBoundingVolume()));
 
 	wall->GetPhysicsObject()->SetInverseMass(0);
@@ -327,7 +331,7 @@ GameObject* TutorialGame::AddPlatform4ToWorld(Vector3 position, Vector3 scale)
 	wall->SetBoundingVolume((CollisionVolume*)volume);
 	wall->GetTransform().SetWorldPosition(position);
 	wall->GetTransform().SetWorldScale(Vector3(scale));
-	wall->SetRenderObject(new RenderObject(&wall->GetTransform(), cubeMesh, basicTex, basicShader));
+	wall->SetRenderObject(new RenderObject(&wall->GetTransform(), cubeMesh, forceTex, basicShader));
 	wall->SetPhysicsObject(new PhysicsObject(&wall->GetTransform(), wall->GetBoundingVolume()));
 
 	wall->GetPhysicsObject()->SetInverseMass(0);
@@ -345,7 +349,7 @@ GameObject* TutorialGame::AddTrampolineToWorld(Vector3 position, Vector3 scale)
 	wall->SetBoundingVolume((CollisionVolume*)volume);
 	wall->GetTransform().SetWorldPosition(position);
 	wall->GetTransform().SetWorldScale(Vector3(scale));
-	wall->SetRenderObject(new RenderObject(&wall->GetTransform(), cubeMesh, basicTex, basicShader));
+	wall->SetRenderObject(new RenderObject(&wall->GetTransform(), cubeMesh, trampoTex, basicShader));
 	wall->SetPhysicsObject(new PhysicsObject(&wall->GetTransform(), wall->GetBoundingVolume()));
 
 	wall->GetPhysicsObject()->SetInverseMass(0);
@@ -413,7 +417,7 @@ GameObject* TutorialGame::AddSphereToWorld(const Vector3& position, float radius
 	sphere->GetTransform().SetWorldScale(sphereSize);
 	sphere->GetTransform().SetWorldPosition(position);
 
-	sphere->SetRenderObject(new RenderObject(&sphere->GetTransform(), sphereMesh, basicTex, basicShader));
+	sphere->SetRenderObject(new RenderObject(&sphere->GetTransform(), sphereMesh, ballTex, basicShader));
 	sphere->SetPhysicsObject(new PhysicsObject(&sphere->GetTransform(), sphere->GetBoundingVolume()));
 
 	sphere->GetPhysicsObject()->SetInverseMass(inverseMass);

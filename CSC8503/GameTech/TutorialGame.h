@@ -66,7 +66,11 @@ namespace NCL {
 			OGLMesh* sphereMesh = nullptr;
 			OGLTexture* basicTex = nullptr;
 			OGLTexture* waterTex = nullptr;
+			OGLTexture* trampoTex = nullptr;
+			OGLTexture* forceTex = nullptr;
+			OGLTexture* ballTex = nullptr;
 			OGLShader* basicShader = nullptr;
+
 
 			//Coursework Meshes
 			OGLMesh* gooseMesh = nullptr;

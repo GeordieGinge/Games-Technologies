@@ -11,10 +11,10 @@ C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\winsock2.h(17,1):
 C:\Users\Admin\Desktop\GITHUB\Games-Technologies\CSC8503\GameTech\NetworkedGame.cpp : message : see previous definition of '_WINSOCKAPI_'
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\winsock2.h(17,1): warning C4005: '_WINSOCKAPI_': macro redefinition
 C:\Users\Admin\Desktop\GITHUB\Games-Technologies\CSC8503\GameTech\TutorialGame.cpp : message : see previous definition of '_WINSOCKAPI_'
-C:\Users\Admin\Desktop\GITHUB\Games-Technologies\CSC8503\GameTech\TutorialGame.cpp(234,42): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\Admin\Desktop\GITHUB\Games-Technologies\CSC8503\GameTech\TutorialGame.cpp(244,36): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\Admin\Desktop\GITHUB\Games-Technologies\CSC8503\GameTech\TutorialGame.cpp(363,43): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\Admin\Desktop\GITHUB\Games-Technologies\CSC8503\GameTech\TutorialGame.cpp(481,60): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Admin\Desktop\GITHUB\Games-Technologies\CSC8503\GameTech\TutorialGame.cpp(238,42): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Admin\Desktop\GITHUB\Games-Technologies\CSC8503\GameTech\TutorialGame.cpp(248,36): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Admin\Desktop\GITHUB\Games-Technologies\CSC8503\GameTech\TutorialGame.cpp(367,43): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Admin\Desktop\GITHUB\Games-Technologies\CSC8503\GameTech\TutorialGame.cpp(485,60): warning C4305: 'argument': truncation from 'double' to 'float'
   Generating Code...
-C:\Users\Admin\Desktop\GITHUB\Games-Technologies\CSC8503\GameTech\TutorialGame.cpp(517,60): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Admin\Desktop\GITHUB\Games-Technologies\CSC8503\GameTech\TutorialGame.cpp(521,60): warning C4305: 'argument': truncation from 'double' to 'float'
   GameTech.vcxproj -> C:\Users\Admin\Desktop\GITHUB\Games-Technologies\Win32\Debug\GameTech.exe
