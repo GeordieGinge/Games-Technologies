@@ -1,1 +1,8 @@
-﻿  OpenGLRendering.vcxproj -> C:\Users\Admin\Desktop\GITHUB\Games-Technologies\Win32\Debug\OpenGLRendering.lib
+﻿  glad.c
+  OGLComputeShader.cpp
+  OGLMesh.cpp
+  OGLRenderer.cpp
+  OGLShader.cpp
+  OGLTexture.cpp
+  Generating Code...
+  OpenGLRendering.vcxproj -> C:\Users\Aaron\Desktop\GITHUB\Games-Technologies\Win32\Debug\OpenGLRendering.lib

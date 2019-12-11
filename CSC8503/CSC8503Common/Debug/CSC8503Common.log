@@ -1,10 +1,33 @@
-﻿  CollisionDetection.cpp
+﻿  BoundingAABB.cpp
+  BoundingOOBB.cpp
+  BoundingSphere.cpp
+  BoundingVolume.cpp
+  CollisionDetection.cpp
+  Debug.cpp
+  GameClient.cpp
   GameObject.cpp
   GameServer.cpp
   GameWorld.cpp
+  NavigationGrid.cpp
+C:\Users\Aaron\Desktop\GITHUB\Games-Technologies\CSC8503\CSC8503Common\NavigationGrid.cpp(82,12): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Aaron\Desktop\GITHUB\Games-Technologies\CSC8503\CSC8503Common\NavigationGrid.cpp(83,12): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Aaron\Desktop\GITHUB\Games-Technologies\CSC8503\CSC8503Common\NavigationGrid.cpp(85,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  NavigationMesh.cpp
+  NetworkBase.cpp
   NetworkObject.cpp
+  NetworkState.cpp
   PhysicsObject.cpp
   PhysicsSystem.cpp
   PositionConstraint.cpp
+  PushdownMachine.cpp
+  PushdownState.cpp
   Generating Code...
-  CSC8503Common.vcxproj -> C:\Users\Admin\Desktop\GITHUB\Games-Technologies\Win32\Debug\CSC8503Common.lib
+  Compiling...
+  QuadTree.cpp
+  RenderObject.cpp
+  StateMachine.cpp
+  StateTransition.cpp
+  Transform.cpp
+  Generating Code...
+C:\Users\Aaron\Desktop\GITHUB\Games-Technologies\CSC8503\CSC8503Common\NavigationGrid.cpp(86,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  CSC8503Common.vcxproj -> C:\Users\Aaron\Desktop\GITHUB\Games-Technologies\Win32\Debug\CSC8503Common.lib
