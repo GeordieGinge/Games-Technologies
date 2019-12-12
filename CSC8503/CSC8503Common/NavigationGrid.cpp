@@ -72,7 +72,8 @@ NavigationGrid::NavigationGrid(const std::string&filename) : NavigationGrid() {
 	}
 }
 
-NavigationGrid::~NavigationGrid()	{
+NavigationGrid::~NavigationGrid()	
+{
 	delete[] allNodes;
 }
 

@@ -12,6 +12,7 @@ PhysicsObject::PhysicsObject(Transform* parentTransform, const CollisionVolume* 
 	inverseMass = 1.0f;
 	elasticity	= 10.0f;
 	friction = Vector3(1, 1, 1);
+	useGravity = true;
 }
 
 PhysicsObject::~PhysicsObject()	{

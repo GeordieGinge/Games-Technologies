@@ -1,4 +1,6 @@
-﻿  PhysicsObject.cpp
-  PhysicsSystem.cpp
-  Generating Code...
-  CSC8503Common.vcxproj -> C:\Users\Aaron\Desktop\GITHUB\Games-Technologies\Win32\Debug\CSC8503Common.lib
+﻿  NavigationGrid.cpp
+C:\Users\Admin\Desktop\GITHUB\Games-Technologies\CSC8503\CSC8503Common\NavigationGrid.cpp(83,12): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Admin\Desktop\GITHUB\Games-Technologies\CSC8503\CSC8503Common\NavigationGrid.cpp(84,12): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Admin\Desktop\GITHUB\Games-Technologies\CSC8503\CSC8503Common\NavigationGrid.cpp(86,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Admin\Desktop\GITHUB\Games-Technologies\CSC8503\CSC8503Common\NavigationGrid.cpp(87,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  CSC8503Common.vcxproj -> C:\Users\Admin\Desktop\GITHUB\Games-Technologies\Win32\Debug\CSC8503Common.lib

@@ -67,6 +67,9 @@ namespace NCL {
 				return friction;
 			}
 
+		   bool GetUsingGravity() { return useGravity; }
+		   void SetUsingGravity(bool value) { useGravity = value; }
+
 			void InitCubeInertia();
 			void InitSphereInertia();
 
@@ -82,6 +85,8 @@ namespace NCL {
 
 			float inverseMass;
 			float elasticity;
+
+			bool useGravity;
 
 
 			//linear stuff

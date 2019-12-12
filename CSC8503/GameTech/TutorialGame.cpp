@@ -17,7 +17,7 @@ TutorialGame::TutorialGame()
 	physics = new PhysicsSystem(*world);
 
 	forceMagnitude = 10.0f;
-	useGravity = false;
+	physics->UseGravity(true);
 	inSelectionMode = false;
 
 	Debug::SetRenderer(renderer);
@@ -73,18 +73,23 @@ TutorialGame::~TutorialGame()
 }
 
 void TutorialGame::UpdateGame(float dt) {
-	 	
+
 	LockedCameraMovement();
 
 	UpdateKeys();
 
-	if (useGravity) 
+	/*if (useGravity)
 	{
 		Debug::Print("(G)ravity on", Vector2(50, 40));
 	}
-	else 
+	else
 	{
 		Debug::Print("(G)ravity off", Vector2(50, 40));
+	}*/
+
+	if (characterobj != nullptr)
+	{
+		characterobj->GetObjectposition(characterobj->pickedUpObject);
 	}
 
 	world->UpdateWorld(dt);
@@ -106,15 +111,17 @@ void TutorialGame::UpdateKeys() {
 		InitCamera(); //F2 will reset the camera to a specific default place
 	}
 
-	if (Window::GetKeyboard()->KeyPressed(KeyboardKeys::G)) 
+	/*if (Window::GetKeyboard()->KeyPressed(KeyboardKeys::G)) 
 	{
 		useGravity = !useGravity; //Toggle gravity!
 		physics->UseGravity(useGravity);
-	}
+	}*/
+
 	//Running certain physics updates in a consistent order might cause some
 	//bias in the calculations - the same objects might keep 'winning' the constraint
 	//allowing the other one to stretch too much etc. Shuffling the order so that it
 	//is random every frame can help reduce such bias.
+
 	if (Window::GetKeyboard()->KeyPressed(KeyboardKeys::F9)) 
 	{
 		world->ShuffleConstraints(true);
@@ -179,6 +186,17 @@ void TutorialGame::LockedObjectMovement()
 	{
 		characterobj->GetPhysicsObject()->AddForce(Vector3(0, -500, 0));
 	}
+
+	if (Window::GetKeyboard()->KeyDown(KeyboardKeys::Q))
+	{
+		characterobj->DropApple();
+	}
+
+	if (Window::GetKeyboard()->KeyDown(KeyboardKeys::F))
+	{
+		characterobj->ThrowApple();
+	}
+
 }
 
 	void  TutorialGame::LockedCameraMovement()
@@ -417,37 +435,20 @@ GameObject* TutorialGame::AddSphereToWorld(const Vector3& position, float radius
 	sphere->GetTransform().SetWorldScale(sphereSize);
 	sphere->GetTransform().SetWorldPosition(position);
 
+	
+
 	sphere->SetRenderObject(new RenderObject(&sphere->GetTransform(), sphereMesh, ballTex, basicShader));
 	sphere->SetPhysicsObject(new PhysicsObject(&sphere->GetTransform(), sphere->GetBoundingVolume()));
 
 	sphere->GetPhysicsObject()->SetInverseMass(inverseMass);
 	sphere->GetPhysicsObject()->InitSphereInertia();
 	sphere->SetName("ball");
+
+	sphere->GetPhysicsObject()->SetUsingGravity(true);
+
 	world->AddGameObject(sphere);
 
 	return sphere;
-}
-
-GameObject* TutorialGame::AddCubeToWorld(const Vector3& position, Vector3 dimensions, float inverseMass) 
-{
-	GameObject* cube = new GameObject();
-
-	AABBVolume* volume = new AABBVolume(dimensions);
-
-	cube->SetBoundingVolume((CollisionVolume*)volume);
-
-	cube->GetTransform().SetWorldPosition(position);
-	cube->GetTransform().SetWorldScale(dimensions);
-
-	cube->SetRenderObject(new RenderObject(&cube->GetTransform(), cubeMesh, basicTex, basicShader));
-	cube->SetPhysicsObject(new PhysicsObject(&cube->GetTransform(), cube->GetBoundingVolume()));
-
-	cube->GetPhysicsObject()->SetInverseMass(inverseMass);
-	cube->GetPhysicsObject()->InitCubeInertia();
-
-	world->AddGameObject(cube);
-
-	return cube;
 }
 
 GameObject* TutorialGame::AddGooseToWorld(const Vector3& position)
@@ -460,6 +461,7 @@ GameObject* TutorialGame::AddGooseToWorld(const Vector3& position)
 	SphereVolume* volume = new SphereVolume(size);
 	goose->SetBoundingVolume((CollisionVolume*)volume);
 
+
 	goose->GetTransform().SetWorldScale(Vector3(size,size,size) );
 	goose->GetTransform().SetWorldPosition(position);
 	goose->GetTransform().SetLocalOrientation(Quaternion::EulerAnglesToQuaternion(0, 180, 0));//Fixes the goose rotation
@@ -471,6 +473,8 @@ GameObject* TutorialGame::AddGooseToWorld(const Vector3& position)
 	goose->GetPhysicsObject()->InitSphereInertia();
 	goose->SetName("goose");
 
+	goose->GetPhysicsObject()->SetUsingGravity(true);
+
 	world->AddGameObject(goose);
 	return goose;
 }
@@ -480,10 +484,13 @@ GameObject* TutorialGame::AddParkKeeperToWorld(const Vector3& position)
 	float meshSize = 4.0f;
 	float inverseMass = 0.5f;
 
+	
+
 	GameObject* keeper = new GameObject();
 
 	AABBVolume* volume = new AABBVolume(Vector3(0.3, 0.9f, 0.3) * meshSize);
 	keeper->SetBoundingVolume((CollisionVolume*)volume);
+
 
 	keeper->GetTransform().SetWorldScale(Vector3(meshSize, meshSize, meshSize));
 	keeper->GetTransform().SetWorldPosition(position);
@@ -494,6 +501,7 @@ GameObject* TutorialGame::AddParkKeeperToWorld(const Vector3& position)
 	keeper->GetPhysicsObject()->SetInverseMass(inverseMass);
 	keeper->GetPhysicsObject()->InitCubeInertia();
 
+	keeper->GetPhysicsObject()->SetUsingGravity(true);
 	world->AddGameObject(keeper);
 
 	return keeper;
@@ -504,6 +512,8 @@ GameObject* TutorialGame::AddCharacterToWorld(const Vector3& position) {
 	float inverseMass = 0.5f;
 
 	auto pos = keeperMesh->GetPositionData();
+
+
 
 	Vector3 minVal = pos[0];
 	Vector3 maxVal = pos[0];
@@ -530,6 +540,7 @@ GameObject* TutorialGame::AddCharacterToWorld(const Vector3& position) {
 	character->GetPhysicsObject()->SetInverseMass(inverseMass);
 	character->GetPhysicsObject()->InitCubeInertia();
 
+	character->GetPhysicsObject()->SetUsingGravity(true);
 	world->AddGameObject(character);
 
 	return character;
@@ -538,9 +549,10 @@ GameObject* TutorialGame::AddCharacterToWorld(const Vector3& position) {
 GameObject* TutorialGame::AddAppleToWorld(const Vector3& position) {
 	GameObject* apple = new GameObject();
 
+
 	SphereVolume* volume = new SphereVolume(0.7f);
 	apple->SetBoundingVolume((CollisionVolume*)volume);
-	apple->GetTransform().SetWorldScale(Vector3(4, 4, 4));
+	apple->GetTransform().SetWorldScale(Vector3(-5, 4, 4));
 	apple->GetTransform().SetWorldPosition(position);
 
 	apple->SetRenderObject(new RenderObject(&apple->GetTransform(), appleMesh, nullptr, basicShader));
@@ -549,6 +561,8 @@ GameObject* TutorialGame::AddAppleToWorld(const Vector3& position) {
 	apple->GetPhysicsObject()->SetInverseMass(1.0f);
 	apple->GetPhysicsObject()->InitSphereInertia();
 
+	apple->SetName("apple");
+	apple->GetPhysicsObject()->SetUsingGravity(true);
 	world->AddGameObject(apple);
 
 	return apple;
@@ -577,46 +591,5 @@ void TutorialGame::InitMixedGridWorld(int numRows, int numCols, float rowSpacing
 			}
 		}
 	}
-}
-
-void TutorialGame::BridgeConstraintTest() {
-	Vector3 cubeSize = Vector3(8, 8, 8);
-
-	float	invCubeMass = 5;
-	int		numLinks	= 25;
-	float	maxDistance	= 30;
-	float	cubeDistance = 20;
-
-	Vector3 startPos = Vector3(500, 1000, 500);
-
-	GameObject* start = AddCubeToWorld(startPos + Vector3(0, 0, 0), cubeSize, 0);
-
-	GameObject* end = AddCubeToWorld(startPos + Vector3((numLinks + 2) * cubeDistance, 0, 0), cubeSize, 0);
-
-	GameObject* previous = start;
-
-	for (int i = 0; i < numLinks; ++i) {
-		GameObject* block = AddCubeToWorld(startPos + Vector3((i + 1) * cubeDistance, 0, 0), cubeSize, invCubeMass);
-		PositionConstraint* constraint = new PositionConstraint(previous, block, maxDistance);
-		world->AddConstraint(constraint);
-		previous = block;
-	}
-
-	PositionConstraint* constraint = new PositionConstraint(previous, end, maxDistance);
-	world->AddConstraint(constraint);
-}
-
-void TutorialGame::SimpleGJKTest() {
-	Vector3 dimensions		= Vector3(5, 5, 5);
-	Vector3 floorDimensions = Vector3(100, 2, 100);
-
-	GameObject* fallingCube = AddCubeToWorld(Vector3(0, 20, 0), dimensions, 10.0f);
-	GameObject* newFloor	= AddCubeToWorld(Vector3(0, 0, 0), floorDimensions, 0.0f);
-
-	delete fallingCube->GetBoundingVolume();
-	delete newFloor->GetBoundingVolume();
-
-	fallingCube->SetBoundingVolume((CollisionVolume*)new OBBVolume(dimensions));
-	newFloor->SetBoundingVolume((CollisionVolume*)new OBBVolume(floorDimensions));
 }
 

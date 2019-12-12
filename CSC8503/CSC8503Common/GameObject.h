@@ -59,6 +59,13 @@ namespace NCL {
 				physicsObject = newObject;
 			}
 
+			void PickUpObject(GameObject* otherObj);
+			void GetObjectposition(GameObject* goose);
+			void DropApple();
+			void ThrowApple();
+
+			GameObject* pickedUpObject;
+
 			const string& GetName() const {
 				return name;
 			}
@@ -75,6 +82,7 @@ namespace NCL {
 				{
 					this->GetPhysicsObject()->AddForce(Vector3(50000, 100, 0));
 				}
+
 				if (this->name == "goose" && otherObject->name == "2Platform")
 				{
 					this->GetPhysicsObject()->AddForce(Vector3(0, 100, -50000));
@@ -89,13 +97,23 @@ namespace NCL {
 				{
 					this->GetPhysicsObject()->AddForce(Vector3(0, 100, 30000));
 				}
-				if (otherObject->name == "water") {
+
+				if (otherObject->name == "water") 
+				{
 					this->GetPhysicsObject()->SetFriction(Vector3(5, 1, 5));
 				}
+
+				if (this->name == "goose" && otherObject->name == "apple")
+				{
+					PickUpObject(otherObject);
+				}
+
 			}
 
-			virtual void OnCollisionEnd(GameObject* otherObject) {
-				if (otherObject->name == "water") {
+			virtual void OnCollisionEnd(GameObject* otherObject) 
+			{
+				if (otherObject->name == "water") 
+				{
 					this->GetPhysicsObject()->SetFriction(Vector3(1, 1, 1));
 				}
 			}
