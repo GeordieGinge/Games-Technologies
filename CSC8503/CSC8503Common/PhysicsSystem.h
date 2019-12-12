@@ -46,13 +46,11 @@ namespace NCL {
 			float	dTOffset;
 			float	globalDamping;
 			float	frameDT;
-			float	constraintIterationCount;
 
 			std::set<CollisionDetection::CollisionInfo> allCollisions;
 			std::set<CollisionDetection::CollisionInfo>		broadphaseCollisions;
 			std::vector<CollisionDetection::CollisionInfo>	broadphaseCollisionsVec;
 			bool useBroadPhase		= true;
-			bool useSimpleContainer = true;
 			int numCollisionFrames	= 5;
 		};
 	}
